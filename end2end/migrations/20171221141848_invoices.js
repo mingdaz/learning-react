@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable('invoices', function (tables) {
+    return knex.schema.createTable('invoices', function (table) {
         table.increments();
         table.decimal('total').notNullable();
         table.string('email').notNullable();
