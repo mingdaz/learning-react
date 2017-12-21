@@ -6,7 +6,7 @@ import reducer from './universal/reducer'
 import RGB from './universal/RGB'
 import './app.scss'
 
-const store = createStore(reducer)
+const store = createStore(reducer, window.__PRELOADED_STATE__)
 
 render(
     <Provider store={store}>

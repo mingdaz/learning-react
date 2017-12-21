@@ -1,3 +1,6 @@
+import * as actionTypes from './actionTypes'
+import reduce from './reduce'
+
 const initialState = {
     r: 244,
     g: 158,
@@ -12,12 +15,6 @@ function updateColor(state, action) {
     }
 }
 
-export default function reducer(state = initialState, action = {}) {
-    switch (action.type){
-        case 'SLIDE':
-            return updateColor(state, action)
-            break
-        default: 
-            return state
-    }
-}
+export default reduce(initialState, {
+    [actionTypes.SLIDE]: updateColor    
+})

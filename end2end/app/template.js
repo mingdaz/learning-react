@@ -1,4 +1,4 @@
-export default html => `
+export default (html, state) => `
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 <html>
 
@@ -12,6 +12,9 @@ export default html => `
 <body>
     <div id="app">${html}</div>
 </body>
+<script>
+    window.__PRELOADED_STATE__ = ${JSON.stringify(state)}
+</script>
 <script src="/assets/bundle.js"></script>
 
 </html>
