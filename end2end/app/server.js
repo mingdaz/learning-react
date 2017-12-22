@@ -1,7 +1,7 @@
 import express from 'express'
 import render from './serverRender'
-import kx from './server/connection'
-
+import {kx} from './server/connection'
+import User from './server/models/User'
 
 const app = express()
 
@@ -27,5 +27,11 @@ const users = kx.from('users').
         return rows
     })
 
+const eagerUsers = User.fetchAll({
+    withRelated: ['invoices']
+}).then(relation => {
+    debugger
+    return relation
+})
 
 app.listen(9999)
