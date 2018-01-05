@@ -1,37 +1,58 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import render from './serverRender'
-import {kx} from './server/connection'
+import bcrypt from 'bcrypt-nodejs'
+import jwt from 'jsonwebtoken'
 import User from './server/models/User'
 
 const app = express()
+app.use(bodyParser.json())
+
+function lookup(username = '' ){
+    return User.where({username}).fetch().then(user => user && user.toJSON())
+}
+
+const api = express.Router()
+app.use('/api', api)
+
+api.post('/session', (req, res) => {
+    const {username, password} = req.body
+
+    lookup(username).then(user => {
+        if(!user||!bcrypt.compareSync(password, user.password)){
+            res.status(422).json({ code: 'invalid_credentials'})
+        } else {
+            const { password: _, ...rest} = user
+            const token = jwt.sign(rest, 'SUPERDUPERSECRET', { expiresIn: '24h'})
+            res.json({token, user: rest})
+        }
+    })
+})
+
+
+function decode(req,res, next){
+    const token = req.get('auth-token')
+    if (token) {
+        jwt.verify(token, 'SUPERDUPERSECRET', (err, decoded) => {
+            if(err){
+                return res.status(403).json({message: 'Fail to authenticate token'})
+            } else {
+                req.currentUser = decoded
+                next()
+            }
+        })
+    } else {
+        return res.status(403).json({ message: 'No token provided'})
+    }
+}
+
+api.get('/session', decode, (req, res)=> {
+    res.json({user: req.currentUser})
+})
 
 app.use('/assets',express.static('assets'))
 
 app.use(render)
 
-kx.on('query',data => console.log(data))
-
-const invoices = kx.from('invoices').
-    select('total', 'email', 'username').
-    innerJoin('users', 'users.id', 'invoices.user_id').
-    then(rows => {
-        debugger
-        return rows
-    })
-
-const users = kx.from('users').
-    select('username','total', 'email').
-    innerJoin('invoices', 'invoices.user_id', 'users.id').
-    then(rows => {
-        debugger
-        return rows
-    })
-
-const eagerUsers = User.fetchAll({
-    withRelated: ['invoices']
-}).then(relation => {
-    debugger
-    return relation
-})
 
 app.listen(9999)
