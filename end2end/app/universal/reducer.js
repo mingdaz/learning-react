@@ -1,20 +1,6 @@
-import * as actionTypes from './actionTypes'
-import reduce from './reduce'
+import { combineReducers } from 'redux'
+import rgb from './rgbReducer'
+import session from './session/reducer'
 
-const initialState = {
-    r: 244,
-    g: 158,
-    b: 66
+export default combineReducers({ rgb, session })
 
-}
-
-function updateColor(state, action) {
-    return {
-        ...state, 
-        [action.color]: action.value        
-    }
-}
-
-export default reduce(initialState, {
-    [actionTypes.SLIDE]: updateColor    
-})
