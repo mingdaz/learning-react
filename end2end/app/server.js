@@ -60,18 +60,34 @@ function decode(req,res, next){
     if (token) {
         jwt.verify(token, 'SUPERDUPERSECRET', (err, decoded) => {
             if(err){
-                return res.status(403).json({message: 'Fail to authenticate token'})
+                req.authFailed = true
+                // return res.status(403).json({message: 'Fail to authenticate token'})
             } else {
                 req.currentUser = decoded
-                next()
             }
+            next()
         })
     } else {
-        return res.status(403).json({ message: 'No token provided'})
+        req.noTokenProvided = true
+        next()
+        // return res.status(403).json({ message: 'No token provided'})
     }
 }
 
-api.use(decode)
+function verify(req,res, next){
+    if(req.authFailed) {
+        return res.status(403).json({message: 'Fail to authenticate token'})
+    }
+
+    if (req.noTokenProvided) {
+        return res.status(403).json({ message: 'No token provided'})
+    }
+
+    next()
+}
+
+app.use(decode)
+api.use(verify)
 api.use(checkCsrf)
 api.use(setCsrf)
 api.get('/session', (req, res)=> {

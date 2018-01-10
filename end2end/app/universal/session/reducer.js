@@ -12,6 +12,14 @@ function setUser(state, action){
     }
 }
 
+function clearUser(state) {
+	return {
+		...state,
+		user: null
+	}
+}
+
 export default reduce(initialState, {
-    [actionTypes.SET]: setUser                     
+    [actionTypes.SET]: setUser,
+    [actionTypes.CLEAR]: clearUser                     
 })
