@@ -16,7 +16,7 @@ export function Home({ authenticated }) {
 
     		<Route exact path="/" component={RGB} />
     		<Route path="/customers" component={CustomerList} />
-    		<Route exact path="/" component={InvoiceList} />
+    		<Route path="/invoices" component={InvoiceList} />
     	</div>
     )
 
