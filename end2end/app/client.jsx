@@ -2,7 +2,8 @@ import React from 'react'
 import {render} from 'react-dom'
 import createStore from './universal/createStore'
 import { Provider } from 'react-redux'
-import Home from './universal/Home'
+import { BrowserRouter } from 'react-router-dom'
+import App from './universal/App'
 import { setUser } from './universal/session/actions'
 import api from './universal/api'
 import './app.scss'
@@ -18,9 +19,9 @@ if (serializedUser){
 
 render(
     <Provider store={store}>
-        <div style={{padding: 'lrem'}}>
-            <Home />
-        </div>
+    	<BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>,
 	document.getElementById('app')
 )

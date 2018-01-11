@@ -1,13 +1,24 @@
 import React from 'react'
+import { Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Login from './session/Login'
+import Nav from './Nav'
+import CustomerList from './customers/List'
+import InvoiceList from './invoices/List'
 import RGB from './RGB'
 
 export function Home({ authenticated }) {
     if( !authenticated){
-        return <Login />
+        return <Redirect to={{ pathname: '/login' }} />
     }
-    return <RGB />
+    return (
+    	<div>
+    		<Nav />
+
+    		<Route exact path="/" component={RGB} />
+    		<Route path="/customers" component={CustomerList} />
+    		<Route exact path="/" component={InvoiceList} />
+    	</div>
+    )
 
 }
 

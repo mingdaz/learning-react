@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from './actions'
 
@@ -6,7 +7,8 @@ export class Login extends Component {
     state = {
         username: '',
         password: '',
-        invalid: false
+        invalid: false,
+        success: false
     }
     
     update = field => e => this.setState({[field]: e.target.value})
@@ -14,7 +16,9 @@ export class Login extends Component {
     onSubmit = (e) => {
         e.preventDefault()
         const {username, password} = this.state
-        this.props.login(username,password).catch(err=> {
+        this.props.login(username,password).then(() =>{
+            this.setState({ success: true})
+        }).catch(err=> {
             if (err.response.status === 422){
                 this.setState({ invalid: true})
             } else {
@@ -26,6 +30,9 @@ export class Login extends Component {
     }
 
     render() {
+        if (this.state.success) {
+            return <Redirect to={{ pathname: '/' }}/>
+        }
         return (
             <form className="pure-form pure-form-stacked" onSubmit={this.onSubmit}>
                 <fieldset>
