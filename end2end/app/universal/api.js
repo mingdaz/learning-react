@@ -26,7 +26,12 @@ export default {
         	window.localStorage.setItem('user', JSON.stringify(resp.data.user))	
         	return resp
        	}),
-       	info: () => adapter.get('/session')
+        logout: () => adapter.delete('/session').then((resp)=>{
+            window.localStorage.removeItem('user')
+
+            return resp
+        })
+        // info: () => adapter.get('/session')
     }
 }
 

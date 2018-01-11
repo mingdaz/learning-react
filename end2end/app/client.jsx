@@ -10,7 +10,7 @@ import './app.scss'
 
 const store = createStore()
 
-api.session.info()
+// api.session.info()
 
 const serializedUser = window.localStorage.getItem('user')
 if (serializedUser){

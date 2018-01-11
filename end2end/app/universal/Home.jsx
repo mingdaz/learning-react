@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import { Switch, Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Nav from './Nav'
 import CustomerList from './customers/List'
@@ -13,10 +13,18 @@ export function Home({ authenticated }) {
     return (
     	<div>
     		<Nav />
+    		<Switch>
+    			<Route exact path="/" component={RGB} />
+    			<Route path="/customers" component={CustomerList} />
+    			<Route path="/invoices" component={InvoiceList} />
+    			<Route children={({ staticContext }) => {
+    				if (staticContext) {
+    					staticContext.status = 404
+    				}
 
-    		<Route exact path="/" component={RGB} />
-    		<Route path="/customers" component={CustomerList} />
-    		<Route path="/invoices" component={InvoiceList} />
+    				return <h1>Sorry, can't find that</h1>
+    			}}/>
+    		</Switch>
     	</div>
     )
 

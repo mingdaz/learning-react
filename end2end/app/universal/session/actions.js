@@ -14,3 +14,9 @@ export function login(username,password){
         dispatch(setUser(resp.data.user))
     )
 }
+
+export function logout() {
+	return dispatch => api.session.logout().then(()=>
+		dispatch(clearUser())
+	)
+}
