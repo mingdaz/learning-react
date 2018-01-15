@@ -1,14 +1,12 @@
-var faker = require('faker');
+var bcrypt = require('bcrypt-nodejs')
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('invoices').del()
+  return knex('users').del()
     .then(function () {
-      return knex.table('users').first('id').then(function(user){
-          return knex('invoices').insert([
-        { user_id: user.id, email: faker.internet.email(), total: faker.commerce.price() },      
-        { user_id: user.id, email: faker.internet.email(), total: faker.commerce.price() },      
-          ])
-      });
+        return knex('users').insert({
+            username: 'admin',
+            password: bcrypt.hashSync('notmypassword',bcrypt.genSaltSync(10))
+        })
     });
 };

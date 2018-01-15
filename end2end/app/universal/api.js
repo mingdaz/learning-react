@@ -32,6 +32,9 @@ export default {
             return resp
         })
         // info: () => adapter.get('/session')
+    },
+    customers: {
+        create: customer => adapter.post('/customers', {customer})
     }
 }
 

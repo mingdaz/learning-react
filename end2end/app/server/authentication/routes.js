@@ -35,7 +35,9 @@ api.delete('/session', (req, res) => {
 })
 
 api.use(verify)
-api.use(checkCsrf)
+if(process.env.NODE_ENV=== 'production'){
+    api.use(checkCsrf)
+}
 api.use(setCsrf)
 
 export default api

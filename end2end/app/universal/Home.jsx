@@ -5,6 +5,7 @@ import Nav from './Nav'
 import CustomerList from './customers/List'
 import InvoiceList from './invoices/List'
 import RGB from './RGB'
+import CreateCustomer from './customers/Create'
 
 export function Home({ authenticated }) {
     if( !authenticated){
@@ -15,7 +16,8 @@ export function Home({ authenticated }) {
     		<Nav />
     		<Switch>
     			<Route exact path="/" component={RGB} />
-    			<Route path="/customers" component={CustomerList} />
+    			<Route path="/customers/new" component={CreateCustomer} />
+                <Route path="/customers" component={CustomerList} />
     			<Route path="/invoices" component={InvoiceList} />
     			<Route children={({ staticContext }) => {
     				if (staticContext) {
