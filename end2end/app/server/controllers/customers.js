@@ -8,6 +8,6 @@ export default function customersController(api){
 		}
 		return Customer.forge(customer).save().then(
 			customer => res.json({ customer })
-		).catch(() => res.status(422).end())
+		).catch(next)
 	})
 }

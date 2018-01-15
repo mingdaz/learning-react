@@ -14,7 +14,11 @@ export class Create extends Component {
 	render() {
 		const { pristine, invalid, handleSubmit } = this.props
 		
-		const submit = e => handleSubmit(e).then( () => this.setState({ success: true }) )
+		const submit = e => handleSubmit(e).then((resp) => {
+			if (resp === 'SUCCESS') {
+				this.setState({ success: true })
+			}
+		})
 		
 		if ( this.state.success) {
 			return <Redirect to="/customers" />
