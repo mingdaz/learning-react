@@ -3703,7 +3703,7 @@ exports.default = {
     },
     customers: {
         list: function list(page) {
-            return adapter.get('/customer', { params: { page: page } });
+            return adapter.get('/customers', { params: { page: page } });
         },
         create: function create(customer) {
             return adapter.post('/customers', { customer: customer });
@@ -6394,7 +6394,7 @@ var CLEAR = exports.CLEAR = 'session/CLEAR';
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = RESULTS_UPDATE = 'customers/RESULTS_UPDATE';
+var RESULTS_UPDATED = exports.RESULTS_UPDATED = 'customers/RESULTS_UPDATED';
 
 /***/ }),
 /* 122 */
@@ -38809,14 +38809,14 @@ var Table = exports.Table = function (_Component) {
 	_createClass(Table, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.porps.fetch();
+			this.props.fetch();
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'table',
-				null,
+				{ className: 'pure-table' },
 				_react2.default.createElement(
 					'thead',
 					null,

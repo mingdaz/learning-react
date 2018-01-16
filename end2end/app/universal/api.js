@@ -34,7 +34,7 @@ export default {
         // info: () => adapter.get('/session')
     },
     customers: {
-        list: page => adapter.get('/customers', { params: {page}}),
+        list: (page, pageSize) => adapter.get('/customers', { params: {page, pageSize}}),
         create: customer => adapter.post('/customers', {customer})
     }
 }

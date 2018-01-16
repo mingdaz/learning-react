@@ -1,35 +1,26 @@
-import React , { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import * as actions from './actions'
+import tabulate from '../shared/pagination/tabulate'
 
-export class Table extends Component {
-	componentDidMount(){
-		this.props.fetch()
-	}
-
-	render() {
-		return (
-			<table className="pure-table">
-				<thead>
-					<tr>
-						<th>
-						Email Address
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{this.props.results.map(r => (
-						<tr key={r.id}>
-							<td>{r.email}</td>
-						</tr>		
-					))}
-				</tbody>
-			</table>
-		)
-	}
+export function Table({ results }) {
+	return (
+		<table className="pure-table">
+			<thead>
+				<tr>
+					<th>
+					Email Address
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{results.map(r => (
+					<tr key={r.id}>
+						<td>{r.email}</td>
+					</tr>		
+				))}
+			</tbody>
+		</table>
+	)
 }
 
-export default connect(
-	state => state.customers,
-	{ fetch: actions.list }
-)(Table)
+export default tabulate('customers', actions.list)(Table)

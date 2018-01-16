@@ -20,8 +20,16 @@ export function resultsUpdated({ results, totalCount }) {
 	}
 }
 
-export function list(page = 1) {
-	return dispatch => api.customers.list(page).then(resp =>
+export function list(page = 1, pageSize = 15) {
+	return dispatch => api.customers.list(page, pageSize).then(resp =>
 		dispatch(resultsUpdated(resp.data))
 	)
+}
+
+export function previous() {
+	return { type: actionTypes.PREV }
+}
+
+export function next() {
+	return { type: actionTypes.NEXT }
 }

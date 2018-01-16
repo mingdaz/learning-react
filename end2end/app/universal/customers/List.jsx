@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Table from './Table'
+import Flipper from './Flipper'
 
 export default function List() {
 	return (
@@ -10,6 +11,9 @@ export default function List() {
 			<Link className="pure-button" to="/customers/new">+ Add Customer</Link>
 			</div>
 
+			<div className="pure-u-1">
+				<Flipper />
+			</div>
 			<div className="pure-u-1">
 				<Table />
 			</div>
