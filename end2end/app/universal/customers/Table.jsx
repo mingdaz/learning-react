@@ -1,6 +1,6 @@
 import React from 'react'
 import * as actions from './actions'
-import tabulate from '../shared/pagination/tabulate'
+import { tabulate } from '../shared/pagination'
 
 export function Table({ results }) {
 	return (

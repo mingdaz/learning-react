@@ -1,6 +1,7 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as actions from './actions'
+import actions from './actions'
 
 export function Flipper({ previous, next, page, pageSize, totalCount }) {
 	const totalPages = Math.ceil(totalCount / pageSize)
@@ -20,6 +21,6 @@ export function Flipper({ previous, next, page, pageSize, totalCount }) {
 }
 
 export default connect(
-	state => state.customers,
-	actions
+	(state, ownProps) => state[ownProps.listId],
+	(dispatch, ownProps) => bindActionCreators(actions(ownProps.listId), dispatch)
 )(Flipper)

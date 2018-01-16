@@ -1,6 +1,8 @@
 import { SubmissionError } from 'redux-form'
 import api from '../api'
-import * as actionTypes from './actionTypes'
+import actions from '../shared/pagination/actions'
+
+export const { resultsUpdated } = actions('customers')
 
 export function create(data) {
 	return () => api.customers.create(data).then(() => 'SUCCESS').catch((err) => {
@@ -12,24 +14,8 @@ export function create(data) {
 	})
 }
 
-export function resultsUpdated({ results, totalCount }) {
-	return {
-		type: actionTypes.RESULTS_UPDATED,
-		results,
-		totalCount
-	}
-}
-
 export function list(page = 1, pageSize = 15) {
 	return dispatch => api.customers.list(page, pageSize).then(resp =>
 		dispatch(resultsUpdated(resp.data))
 	)
-}
-
-export function previous() {
-	return { type: actionTypes.PREV }
-}
-
-export function next() {
-	return { type: actionTypes.NEXT }
 }

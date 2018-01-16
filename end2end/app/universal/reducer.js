@@ -2,6 +2,12 @@ import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 import rgb from './rgbReducer'
 import session from './session/reducer'
-import customers from './customers/reducer'
+import paginate from './shared/pagination/reducer'
 
-export default combineReducers({ rgb, session, form, customers })
+
+export default combineReducers({ 
+	rgb, 
+	session, 
+	form,
+	customers: paginate('customers')
+})

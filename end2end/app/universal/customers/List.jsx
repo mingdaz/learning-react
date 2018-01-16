@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Table from './Table'
-import Flipper from './Flipper'
+import { Flipper } from '../shared/pagination'
 
 export default function List() {
 	return (
@@ -12,7 +12,7 @@ export default function List() {
 			</div>
 
 			<div className="pure-u-1">
-				<Flipper />
+				<Flipper listId="customers"/>
 			</div>
 			<div className="pure-u-1">
 				<Table />
