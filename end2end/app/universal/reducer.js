@@ -9,5 +9,6 @@ export default combineReducers({
 	rgb, 
 	session, 
 	form,
-	customers: paginate('customers')
+	customers: paginate('customers'),
+	invoices: paginate('invoices')
 })
