@@ -1,5 +1,6 @@
 import { SubmissionError } from 'redux-form'
 import api from '../api'
+import * as actionTypes from './actionTypes'
 
 export function create(data) {
 	return () => api.customers.create(data).then(() => 'SUCCESS').catch((err) => {
@@ -9,4 +10,18 @@ export function create(data) {
 
 		throw err
 	})
+}
+
+export function resultsUpdated({ results, totalCount }) {
+	return {
+		type: actionTypes.RESULTS_UPDATED,
+		results,
+		totalCount
+	}
+}
+
+export function list(page = 1) {
+	return dispatch => api.customers.list(page).then(resp =>
+		dispatch(resultsUpdated(resp.data))
+	)
 }
