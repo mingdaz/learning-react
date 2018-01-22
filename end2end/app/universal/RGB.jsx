@@ -21,10 +21,6 @@ export class RGB extends Component {
 }
 
 export default connect(
-    state => ({
-        r: state.r,
-        g: state.g,
-        b: state.b
-    }),
+    state => state.rgb,
     { updateColor: actions.updateColor}
 )(RGB)

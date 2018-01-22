@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server": "yarn run build-client && babel-node app/server.js --preset es2015,react,stage-2",
+    "server": "yarn run build-client && nodemon app/server.js --exec babel-node --preset es2015,react,stage-2",
     "build-client": "webpack --config ./webpack.config.ssr.js",
     "start": "webpack-dev-server --progress --colors -w"
   },
@@ -20,21 +20,35 @@
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.14.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.2",
     "bookshelf": "^0.12.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "csrf": "^3.0.6",
+    "email-validator": "^1.1.1",
     "express": "^4.16.2",
     "faker": "^4.1.0",
+    "jsonwebtoken": "^8.1.0",
     "knex": "0.12.0",
+    "moment": "^2.20.1",
+    "morgan": "^1.9.0",
     "pg": "^7.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.0",
+    "redux-thunk": "^2.2.0"
   }
 }

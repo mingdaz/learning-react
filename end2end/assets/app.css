@@ -2,4 +2,10 @@
   height: 100px;
   width: 500px; }
 
+a[role=button] {
+  cursor: pointer; }
+
+.pure-g > [class*="pure-u"] {
+  margin-top: 1rem; }
+
 /*# sourceMappingURL=app.css.map*/

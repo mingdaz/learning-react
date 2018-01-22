@@ -1,16 +1,27 @@
 import React from 'react'
 import {render} from 'react-dom'
-import { createStore } from 'redux'
+import createStore from './universal/createStore'
 import { Provider } from 'react-redux'
-import reducer from './universal/reducer' 
-import RGB from './universal/RGB'
+import { BrowserRouter } from 'react-router-dom'
+import App from './universal/App'
+import { setUser } from './universal/session/actions'
+import api from './universal/api'
 import './app.scss'
 
-const store = createStore(reducer, window.__PRELOADED_STATE__)
+const store = createStore()
+
+// api.session.info()
+
+const serializedUser = window.localStorage.getItem('user')
+if (serializedUser){
+	store.dispatch(setUser(JSON.parse(serializedUser)))
+}
 
 render(
     <Provider store={store}>
-	    <RGB />
+    	<BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>,
 	document.getElementById('app')
 )
