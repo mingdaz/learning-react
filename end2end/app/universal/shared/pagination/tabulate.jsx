@@ -5,7 +5,11 @@ export default function tabulate(name, fetch) {
 	return Table => {
 		class Tabulated extends Component {
 			componentDidMount(){
-				this.props.fetch()
+				const { stale, fetch } = this.props
+				
+				if (stale) {
+					fetch()
+				}
 			}
 
 			componentWillReceiveProps(nextProps) {

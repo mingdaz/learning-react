@@ -8431,6 +8431,15 @@ function actions(listId) {
 			return {
 				type: t(actionTypes.NEXT)
 			};
+		},
+
+		setPage: function setPage(page) {
+			var pageSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+			return {
+				type: t(actionTypes.SET_PAGE),
+				page: page,
+				pageSize: pageSize
+			};
 		}
 	};
 }
@@ -11050,6 +11059,7 @@ exports.default = actionType;
 var RESULTS_UPDATED = exports.RESULTS_UPDATED = 'pagination/RESULTS_UPDATED';
 var NEXT = exports.NEXT = 'pagination/NEXT';
 var PREV = exports.PREV = 'pagination/PREV';
+var SET_PAGE = exports.SET_PAGE = 'pagination/SET_PAGE';
 
 function actionType(listId) {
 	return function (t) {
@@ -11855,7 +11865,7 @@ module.exports = Cancel;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.resultsUpdated = undefined;
+exports.setPage = exports.resultsUpdated = undefined;
 exports.create = create;
 exports.list = list;
 
@@ -11873,8 +11883,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _actions = (0, _actions3.default)('customers');
 
-var resultsUpdated = _actions.resultsUpdated;
+var resultsUpdated = _actions.resultsUpdated,
+    setPage = _actions.setPage;
 exports.resultsUpdated = resultsUpdated;
+exports.setPage = setPage;
 function create(data) {
 	return function () {
 		return _api2.default.customers.create(data).then(function () {
@@ -50861,6 +50873,19 @@ var initialState = {
 	stale: true
 };
 
+function setPage(state, action) {
+	var page = action.page,
+	    _action$pageSize = action.pageSize,
+	    pageSize = _action$pageSize === undefined ? state.pageSize : _action$pageSize;
+
+
+	return _extends({}, state, {
+		page: page,
+		pageSize: pageSize,
+		stale: true
+	});
+}
+
 function updateResults(state, action) {
 	var results = action.results,
 	    totalCount = action.totalCount;
@@ -50894,7 +50919,7 @@ function paginatie(listId) {
 
 	var t = (0, actionTypes.default)(listId);
 
-	return (0, _reduce3.default)(initialState, (_reduce = {}, _defineProperty(_reduce, t(actionTypes.RESULTS_UPDATED), updateResults), _defineProperty(_reduce, t(actionTypes.NEXT), nextPage), _defineProperty(_reduce, t(actionTypes.PREV), previousPage), _reduce));
+	return (0, _reduce3.default)(initialState, (_reduce = {}, _defineProperty(_reduce, t(actionTypes.RESULTS_UPDATED), updateResults), _defineProperty(_reduce, t(actionTypes.NEXT), nextPage), _defineProperty(_reduce, t(actionTypes.PREV), previousPage), _defineProperty(_reduce, t(actionTypes.SET_PAGE), setPage), _reduce));
 }
 
 /***/ }),
@@ -55197,7 +55222,14 @@ function tabulate(name, _fetch) {
 			_createClass(Tabulated, [{
 				key: 'componentDidMount',
 				value: function componentDidMount() {
-					this.props.fetch();
+					var _props = this.props,
+					    stale = _props.stale,
+					    fetch = _props.fetch;
+
+
+					if (stale) {
+						fetch();
+					}
 				}
 			}, {
 				key: 'componentWillReceiveProps',

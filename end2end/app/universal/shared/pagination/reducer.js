@@ -9,6 +9,17 @@ const initialState = {
 	stale: true
 } 
 
+function setPage(state, action) {
+	const { page, pageSize = state.pageSize } = action
+
+	return {
+		...state,
+		page,
+		pageSize,
+		stale: true
+	}
+}
+
 function updateResults(state, action) {
 	const { results, totalCount } = action
 
@@ -44,6 +55,7 @@ export default function paginatie(listId) {
 	return reduce(initialState, {
 		[t(actionTypes.RESULTS_UPDATED)]: updateResults,
 		[t(actionTypes.NEXT)]: nextPage,
-		[t(actionTypes.PREV)]: previousPage
+		[t(actionTypes.PREV)]: previousPage,
+		[t(actionTypes.SET_PAGE)]: setPage
 	})
 }

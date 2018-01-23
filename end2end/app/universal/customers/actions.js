@@ -2,7 +2,7 @@ import { SubmissionError } from 'redux-form'
 import api from '../api'
 import actions from '../shared/pagination/actions'
 
-export const { resultsUpdated } = actions('customers')
+export const { resultsUpdated, setPage } = actions('customers')
 
 export function create(data) {
 	return () => api.customers.create(data).then(() => 'SUCCESS').catch((err) => {

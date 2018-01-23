@@ -1,16 +1,9 @@
 import Customer from '../models/Customer'
+import * as service from '../services/customers'
 
 export default function customersController(api){
 	api.get('/customers', (req, res, next) => {
-		const { page = 1, pageSize = 15 } = req.query
-		return Customer.where({ user_id: req.currentUser.id })
-			.orderBy('email')
-			.fetchPage({ page, pageSize }).then(resp => {
-				res.json({
-					totalCount: resp.pagination.rowCount,
-					results: resp.toJSON()
-				})
-			})
+		return service.list(req.query, req.currentUser).then(page => res.json(page))
 	})
 
 	api.post('/customers',(req, res, next) => {

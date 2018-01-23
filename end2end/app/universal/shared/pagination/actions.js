@@ -16,6 +16,12 @@ export default function actions(listId) {
 
 		next: () => ({
 			type: t(actionTypes.NEXT)
+		}),
+
+		setPage: (page, pageSize = undefined) => ({
+			type: t(actionTypes.SET_PAGE),
+			page,
+			pageSize
 		})
 	}
 }
