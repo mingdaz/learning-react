@@ -2,7 +2,7 @@ import axios from 'axios'
 import createStore from './createStore'
 import { clearUser } from './session/actions'
 
-const adapter = axios.create({
+export const adapter = axios.create({
     baseURL: 'http://localhost:9999/api',
     withCredentials: true,
     headers:{
