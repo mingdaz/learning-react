@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "NODE_ENV=test mocha './app/**/*.spec.js' --compilers js:babel-register --recursive",
     "server": "yarn run build-client && nodemon app/server.js --exec babel-node --preset es2015,react,stage-2",
     "build-client": "webpack --config ./webpack.config.ssr.js",
     "start": "webpack-dev-server --progress --colors -w"
@@ -15,10 +16,13 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
     "css-loader": "^0.28.7",
+    "expect": "^22.1.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "mocha": "^5.0.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.2",
     "sass-loader": "^6.0.6",

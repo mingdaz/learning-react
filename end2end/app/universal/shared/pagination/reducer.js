@@ -1,7 +1,7 @@
 import reduce from '../../reduce'
 import actionType, * as actionTypes from './actionTypes'
 
-const initialState = {
+export const initialState = {
 	results: [],
 	totalCount: 0,
 	page: 1,
