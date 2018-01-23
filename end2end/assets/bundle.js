@@ -6856,6 +6856,7 @@ function logout() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.adapter = undefined;
 
 var _axios = __webpack_require__(491);
 
@@ -6869,7 +6870,7 @@ var _actions = __webpack_require__(40);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var adapter = _axios2.default.create({
+var adapter = exports.adapter = _axios2.default.create({
     baseURL: 'http://localhost:9999/api',
     withCredentials: true,
     headers: {
@@ -55930,6 +55931,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Slider(_ref) {
@@ -55940,12 +55945,18 @@ function Slider(_ref) {
 	var update = function update(e) {
 		return slide(Math.ceil(e.target.value / 100 * 255));
 	};
+
 	return _react2.default.createElement(
-		"div",
+		'div',
 		null,
-		_react2.default.createElement("input", { type: "range", value: position, onChange: update })
+		_react2.default.createElement('input', { type: 'range', value: position, onChange: update })
 	);
 }
+
+Slider.propTypes = {
+	value: _propTypes2.default.string.isRequired,
+	slide: _propTypes2.default.func.isRequired
+};
 
 /***/ }),
 /* 522 */

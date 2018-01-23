@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha './app/**/*.spec.js' --compilers js:babel-register --recursive",
+    "test": "yarn run flow && yarn run spec",
+    "spec": "NODE_ENV=test mocha './app/**/*.spec.js' --compilers js:babel-register --recursive",
     "server": "yarn run build-client && nodemon app/server.js --exec babel-node --preset es2015,react,stage-2",
     "build-client": "webpack --config ./webpack.config.ssr.js",
     "start": "webpack-dev-server --progress --colors -w"
@@ -23,6 +24,7 @@
     "css-loader": "^0.28.7",
     "expect": "^1.20.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "flow-bin": "^0.63.1",
     "jest": "^22.1.4",
     "mocha": "^5.0.0",
     "node-sass": "^4.7.2",
@@ -49,6 +51,7 @@
     "moment": "^2.20.1",
     "morgan": "^1.9.0",
     "pg": "^7.4.0",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
